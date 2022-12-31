@@ -1,0 +1,58 @@
+
+Objetivo: Criar uma ferramenta para reconhecimento web hacking em python.
+
+
+
+Utilidade: XSS, LFI, SQLInjection / Ataques - Exploits de Injeção em parâmetros
+do tipo GET.
+
+
+
+
+
+
+
+Linha de pensamento:
+
+
+- Inputs type hidden
+
+>>> Motivo: As vezes no back-end pode aceitar tanto requisição POST, como também
+do tipo GET.
+
+
+>>> Pode gerar um resultado diferente ao procurar vulnerabilidades. (Exemplo: 
+ferramenta GAU - Get All URLS não irá encontrar parâmetros de inputs HIDDENS.)
+
+
+
+- Precisamos de: requests and BeautifulSoup
+
+
+
+>>> Realizamos uma requisição HTTP para o domínio, buscamos o código fonte HTML,
+neste realizamos um WEB Scrapping por inputs hiddens, filtrando o nome das inputs
+e depois concatenamos com o domínio para uma URL completa.
+
+
+
+
+Solução de um Bug + Banner + Argumento em Shell:
+
+
+
+import urllib3
+import sys
+
+banner = pyfiglet.figlet_format("HIDDENS!!")
+print(banner)
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+dominio=sys.argv[1]
+
+requisicao = requests.get(dominio, verify=False)
+
+
+
+
